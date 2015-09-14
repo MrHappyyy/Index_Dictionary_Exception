@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 public class DictionaryBuilder {
     private File[] files;
     private Map<String, HashMap<String, Integer>> dictionary = new TreeMap<String, HashMap<String, Integer>>();
+    private int ammautcount = 0;
 
     public DictionaryBuilder(File[] files) throws IOException, DictionaryException {
         this.files = files;
@@ -88,7 +89,10 @@ public class DictionaryBuilder {
                 for (Map.Entry entry : dictionary.entrySet()) {
                     string = "Слово: " + entry.getKey() + "   Документ: " + entry.getValue() + "\n";
                     pout.println(string);
+                    ammautcount += 1;
                 }
+
+                pout.print("\n Количество слов словаре:" + ammautcount);
             } finally {
                 pout.close();
             }

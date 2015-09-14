@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, DictionaryException {
         FileChooser fileChooser = new FileChooser();
         Map<String, HashMap<String, Integer>> dictionary = new TreeMap<String, HashMap<String, Integer>>();
 

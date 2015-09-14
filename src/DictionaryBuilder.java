@@ -7,12 +7,12 @@ public class DictionaryBuilder {
     private File[] files;
     private Map<String, HashMap<String, Integer>> dictionary = new TreeMap<String, HashMap<String, Integer>>();
 
-    public DictionaryBuilder(File[] files) throws IOException {
+    public DictionaryBuilder(File[] files) throws IOException, DictionaryException {
         this.files = files;
         readFileAsList();
     }
 
-    public void readFileAsList() throws IOException {
+    public void readFileAsList() throws IOException, DictionaryException {
         BufferedReader br;
         StringTokenizer tz;
 
@@ -43,7 +43,7 @@ public class DictionaryBuilder {
         }
     }
 
-    private void write(List<String> words, String documentsName) {
+    private void write(List<String> words, String documentsName) throws DictionaryException {
 
         for (int i = 0; i < words.size(); i++) {
             HashMap<String, Integer> hashMap = new HashMap<String,Integer>();
@@ -70,7 +70,7 @@ public class DictionaryBuilder {
         writeToFile();
     }
 
-    public void writeToFile() {
+    public void writeToFile() throws DictionaryException{
         try {
             Date date = new Date();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.mm.yyy hh:mm");
@@ -78,8 +78,7 @@ public class DictionaryBuilder {
             String fileName = simpleDateFormat.format(date) + " Dictionary.txt";
             File file = new File(fileName);
 
-            if (!file.exists())
-                file.createNewFile();
+            file.createNewFile();
 
             PrintWriter pout = new PrintWriter(file.getAbsoluteFile());
 
@@ -94,7 +93,7 @@ public class DictionaryBuilder {
                 pout.close();
             }
         }catch (IOException e) {
-            e.printStackTrace();
+            throw new DictionaryException(e);
         }
     }
 }
